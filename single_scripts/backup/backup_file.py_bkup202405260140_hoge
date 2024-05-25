@@ -1,0 +1,47 @@
+import argparse
+import os
+import shutil
+from datetime import datetime
+
+def process_input(input_value, name_str=None, use_dir=False):
+    # Get the current datetime
+    current_time = datetime.now().strftime('%Y%m%d%H%M')
+    
+    # Determine the backup filename
+    base_name = os.path.basename(input_value)
+    if name_str:
+        name_part = f"_{name_str}"
+    else:
+        name_part = ""
+    backup_filename = f"{base_name}_bkup{current_time}{name_part}"
+    
+    # Determine the target directory
+    if use_dir:
+        target_dir = os.path.join(os.getcwd(), "backup")
+        os.makedirs(target_dir, exist_ok=True)
+        backup_path = os.path.join(target_dir, backup_filename)
+    else:
+        backup_path = backup_filename
+    
+    # Copy the file
+    shutil.copy2(input_value, backup_path)
+    print(f"Copied {input_value} to {backup_path}")
+
+def main():
+    parser = argparse.ArgumentParser(description='Shell Command Tool')
+    
+    # Define all possible options with short and long forms
+    parser.add_argument('-i', '--input', type=str, action='store', required=True, help='Specify the input file')
+    parser.add_argument('-d', '--dir', action='store_true', help='Perform directory-related processing')
+    parser.add_argument('-n', '--number', type=int, action='store', help='Specify a number value')
+    parser.add_argument('--name', type=str, action='store', help='Specify a name string for the backup file')
+    
+    args = parser.parse_args()
+
+    # Process each option
+    if args.input:
+        process_input(args.input, args.name, args.dir)
+    
+
+if __name__ == '__main__':
+    main()
