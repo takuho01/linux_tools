@@ -1,0 +1,9 @@
+
+copy backup with date
+/home/takuho/CODE/linux_tools/single_scripts/backup_file.sh
+
+copy backup with date
+/home/takuho/CODE/linux_tools/single_scripts/backup_file.sh
+
+copy backup with date
+/home/takuho/CODE/linux_tools/single_scripts/backup_file.sh
